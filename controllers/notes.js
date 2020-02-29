@@ -3,7 +3,7 @@ const Note = require('../models/Note');
 // @desc  Get all notes
 // @route GET /notes
 // @access Public
-exports.getNotes = async (req, res, next) => {
+exports.getNotes = async (req, res) => {
   try {
     const notes = await Note.find().sort({ custName: 1 });
 
@@ -22,7 +22,7 @@ exports.getNotes = async (req, res, next) => {
 // @desc  Add note
 // @route POST /notes
 // @access Public
-exports.addNote = async (req, res, next) => {
+exports.addNote = async (req, res) => {
   try {
     const note = await Note.create(req.body);
 
@@ -39,7 +39,7 @@ exports.addNote = async (req, res, next) => {
 // @desc Update note
 // @route PUT /notes/:id
 // @access
-exports.updateNote = async (req, res, next) => {
+exports.updateNote = async (req, res) => {
   try {
     const note = await Note.findById(req.params.id).exec();
     note.set(req.body);
