@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import styled from "styled-components";
+import React, { Component } from 'react';
+import styled from 'styled-components';
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      userName: "",
-      password: "",
-      error: ""
+      userName: '',
+      password: '',
+      error: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,24 +22,24 @@ export default class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    fetch("https://express-delivery-api.herokuapp.com/user/login", {
-      method: "POST",
-      mode: "cors",
-      headers: { "Content-Type": "application/json" },
+    fetch('https://express-delivery-api.herokuapp.com/api/v1/user/login', {
+      method: 'POST',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         userName: this.state.userName,
-        password: this.state.password
-      })
+        password: this.state.password,
+      }),
     })
-      .then(res => res.json())
-      .then(data => {
-        if (data.hasOwnProperty("error")) {
+      .then((res) => res.json())
+      .then((data) => {
+        if (Object.prototype.hasOwnProperty.call(data, 'error')) {
           this.setState({ error: data.error });
-          this.props.history.push("/");
+          this.props.history.push('/');
         }
-        if (data.hasOwnProperty("token")) {
-          localStorage.setItem("token", data.token);
-          this.props.history.push("/stops");
+        if (Object.prototype.hasOwnProperty.call(data, 'token')) {
+          localStorage.setItem('token', data.token);
+          this.props.history.push('/stops');
         }
       });
   }

@@ -1,36 +1,35 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-import SingleStop from "./SingleStop";
-import NavBar from "./NavBar";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import SingleStop from './SingleStop';
+import NavBar from './NavBar';
 
 export default class StopList extends React.Component {
   state = {
     stops: [],
-    search: "",
-    dataLoaded: false
+    search: '',
+    dataLoaded: false,
   };
 
-  onchange = e => {
+  onchange = (e) => {
     this.setState({ search: e.target.value });
   };
 
   componentDidMount() {
-    const token = localStorage.getItem("token");
-    fetch("https://express-delivery-api.herokuapp.com/notes", {
-      method: "GET",
-      mode: "cors",
-      headers: { Authorization: token }
+    const token = localStorage.getItem('token');
+    fetch('https://express-delivery-api.herokuapp.com/api/v1/notes', {
+      method: 'GET',
+      mode: 'cors',
+      headers: { Authorization: token },
     })
-      .then(res => res.json())
-      .then(data => this.setState({ stops: data.data, dataLoaded: true }))
-      .catch(error => this.props.history.push("/"));
+      .then((res) => res.json())
+      .then((data) => this.setState({ stops: data.data, dataLoaded: true }))
+      .catch((error) => { console.log(error); this.props.history.push('/'); });
   }
+
   render() {
     const { search } = this.state;
-    const filteredStops = this.state.stops.filter(stop => {
-      return stop.custName.toLowerCase().indexOf(search.toLowerCase()) !== -1;
-    });
+    const filteredStops = this.state.stops.filter((stop) => stop.custName.toLowerCase().indexOf(search.toLowerCase()) !== -1);
     if (!filteredStops.length && this.state.dataLoaded === true) {
       return (
         <div>
@@ -50,11 +49,10 @@ export default class StopList extends React.Component {
       <div>
         <NavBar />
         <Title>Stops</Title>
+        {console.log(filteredStops)}
         <StopListDiv>
           <Search type="text" placeholder="Search" onChange={this.onchange} />
-          {filteredStops.map(stop => {
-            return <SingleStop key={stop._id} stop={stop} />;
-          })}
+          {filteredStops.map((stop) => <SingleStop key={stop._id} stop={stop} />)}
         </StopListDiv>
       </div>
     );

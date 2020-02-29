@@ -1,23 +1,24 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import NavBar from "./NavBar";
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import NavBar from './NavBar';
 
 export default class AddNote extends Component {
   constructor(props) {
     super(props);
     const data = this.props.location.state.stop.stop;
     this.state = {
-      id: data._id,
+      id: data.id,
       custName: data.custName,
       address: data.address,
       suite: data.suite,
       city: data.city,
       deliveryLocation: data.deliveryLocation,
-      notes: data.notes
+      notes: data.notes,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
     event.preventDefault();
@@ -25,22 +26,22 @@ export default class AddNote extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const token = localStorage.getItem("token");
-    fetch(`https://express-delivery-api.herokuapp.com/notes/${this.state.id}`, {
-      method: "PUT",
-      mode: "cors",
-      headers: { "Content-Type": "application/json", Authorization: token },
+    const token = localStorage.getItem('token');
+    fetch(`https://express-delivery-api.herokuapp.com/notes/api/v1/${this.state.id}`, {
+      method: 'PUT',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json', Authorization: token },
       body: JSON.stringify({
         custName: this.state.custName,
         address: this.state.address,
         suite: this.state.suite,
         city: this.state.city,
         deliveryLocation: this.state.deliveryLocation,
-        notes: this.state.notes
-      })
+        notes: this.state.notes,
+      }),
     });
 
-    this.props.history.push("/stops");
+    this.props.history.push('/stops');
   }
 
   render() {

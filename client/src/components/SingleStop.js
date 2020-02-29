@@ -1,6 +1,6 @@
-import React from "react";
-import { withRouter, Link } from "react-router-dom";
-import styled from "styled-components";
+import React from 'react';
+import { withRouter, Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 function SingleStop(stop) {
   return (
@@ -9,7 +9,7 @@ function SingleStop(stop) {
       <p>
         Address: <span>{stop.stop.address}</span>
       </p>
-      {stop.stop.suite !== "" && (
+      {stop.stop.suite !== '' && (
         <p>
           Suite: <span>{stop.stop.suite}</span>
         </p>
@@ -20,13 +20,13 @@ function SingleStop(stop) {
       <p>
         Delivery Location: <span>{stop.stop.deliveryLocation}</span>
       </p>
-      {stop.stop.notes !== "" && (
+      {stop.stop.notes !== '' && (
         <p>
           Notes: <span>{stop.stop.notes}</span>
         </p>
       )}
 
-      <UpdateLink to={{ pathname: "/update", state: { stop } }}>
+      <UpdateLink to={{ pathname: '/update', state: { stop } }}>
         Update Note
       </UpdateLink>
     </Main>
