@@ -1,0 +1,19 @@
+{
+  "name": "delivery-notes-fullstack",
+  "version": "1.0.0",
+  "description": "Delivery notes fullstack application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minnecoder/delivery-notes-fullstack.git"
+  },
+  "author": "Sean Parkin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/minnecoder/delivery-notes-fullstack/issues"
+  },
+  "homepage": "https://github.com/minnecoder/delivery-notes-fullstack#readme"
+}
