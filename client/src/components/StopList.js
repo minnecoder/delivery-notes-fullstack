@@ -17,7 +17,7 @@ export default class StopList extends React.Component {
 
   componentDidMount() {
     const token = localStorage.getItem('token');
-    fetch('https://express-delivery-api.herokuapp.com/api/v1/notes', {
+    fetch('/api/v1/notes', {
       method: 'GET',
       mode: 'cors',
       headers: { Authorization: token },

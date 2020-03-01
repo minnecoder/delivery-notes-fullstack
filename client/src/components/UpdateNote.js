@@ -27,7 +27,7 @@ export default class AddNote extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const token = localStorage.getItem('token');
-    fetch(`https://express-delivery-api.herokuapp.com/notes/api/v1/${this.state.id}`, {
+    fetch(`/api/v1/${this.state.id}`, {
       method: 'PUT',
       mode: 'cors',
       headers: { 'Content-Type': 'application/json', Authorization: token },

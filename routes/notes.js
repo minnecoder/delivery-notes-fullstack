@@ -1,6 +1,6 @@
 const express = require('express');
 const verify = require('./verifyToken');
-// const { notesCRUAccess, notesDeleteAccess } = require("./verifyRoles");
+
 const {
   getNotes,
   addNote,

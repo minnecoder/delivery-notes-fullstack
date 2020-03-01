@@ -22,7 +22,9 @@ module.exports = {
         "react"
     ],
     "rules": {
-        "react/prop-types": 0
+        "react/prop-types": 0,
+        "max-len": 0,
+        "no-underscore-dangle": 0
     },
     "parser": "babel-eslint"
 };
