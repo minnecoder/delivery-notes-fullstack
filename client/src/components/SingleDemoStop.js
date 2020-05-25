@@ -20,11 +20,6 @@ function SingleStop(stop) {
       <p>
         Delivery Location: <span>{stop.stop.deliveryLocation}</span>
       </p>
-      {stop.stop.notes !== "" && (
-        <p>
-          Notes: <span>{stop.stop.notes}</span>
-        </p>
-      )}
 
       <UpdateLink to={{ pathname: "/update", state: { stop } }}>
         Update Note

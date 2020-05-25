@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import NavBar from './NavBar';
+import React, { Component } from "react";
+import styled from "styled-components";
+import NavBar from "./NavBar";
 
 export default class AddNote extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      custName: '',
-      address: '',
-      suite: '',
-      city: '',
-      deliveryLocation: '',
-      notes: '',
-      error: '',
+      custName: "",
+      address: "",
+      suite: "",
+      city: "",
+      deliveryLocation: "",
+      notes: "",
+      error: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,11 +27,11 @@ export default class AddNote extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const token = localStorage.getItem('token');
-    fetch('/api/v1/notes', {
-      method: 'POST',
-      mode: 'cors',
-      headers: { 'Content-Type': 'application/json', Authorization: token },
+    const token = localStorage.getItem("token");
+    fetch("/api/v1/notes", {
+      method: "POST",
+      mode: "cors",
+      headers: { "Content-Type": "application/json", Authorization: token },
       body: JSON.stringify({
         custName: this.state.custName,
         address: this.state.address,
@@ -42,15 +42,15 @@ export default class AddNote extends Component {
       }),
     });
     this.setState({
-      custName: '',
-      address: '',
-      suite: '',
-      city: '',
-      deliveryLocation: '',
-      notes: '',
-      error: '',
+      custName: "",
+      address: "",
+      suite: "",
+      city: "",
+      deliveryLocation: "",
+      notes: "",
+      error: "",
     });
-    this.props.history.push('/stops');
+    this.props.history.push("/stops");
   }
 
   render() {

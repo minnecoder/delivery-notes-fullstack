@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import SingleStop from "./SingleStop";
+import SingleDemoStop from "./SingleDemoStop";
 import NavBar from "./NavBar";
 
 export default class StopList extends React.Component {
@@ -17,7 +17,7 @@ export default class StopList extends React.Component {
 
   componentDidMount() {
     const token = localStorage.getItem("token");
-    fetch("/api/v1/notes", {
+    fetch("/api/v1/notes/demo", {
       method: "GET",
       mode: "cors",
       headers: { Authorization: token },
@@ -58,7 +58,7 @@ export default class StopList extends React.Component {
         <StopListDiv>
           <Search type="text" placeholder="Search" onChange={this.onchange} />
           {filteredStops.map((stop) => (
-            <SingleStop key={stop._id} stop={stop} />
+            <SingleDemoStop key={stop._id} stop={stop} />
           ))}
         </StopListDiv>
       </div>

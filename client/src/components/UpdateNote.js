@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import NavBar from './NavBar';
+import React, { Component } from "react";
+import styled from "styled-components";
+import NavBar from "./NavBar";
 
 export default class AddNote extends Component {
   constructor(props) {
@@ -26,11 +26,11 @@ export default class AddNote extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     fetch(`/api/v1/${this.state.id}`, {
-      method: 'PUT',
-      mode: 'cors',
-      headers: { 'Content-Type': 'application/json', Authorization: token },
+      method: "PUT",
+      mode: "cors",
+      headers: { "Content-Type": "application/json", Authorization: token },
       body: JSON.stringify({
         custName: this.state.custName,
         address: this.state.address,
@@ -41,7 +41,7 @@ export default class AddNote extends Component {
       }),
     });
 
-    this.props.history.push('/stops');
+    this.props.history.push("/stops");
   }
 
   render() {

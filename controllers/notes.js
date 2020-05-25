@@ -1,4 +1,4 @@
-const Note = require('../models/Note');
+const Note = require("../models/Note");
 
 // @desc  Get all notes
 // @route GET /notes
@@ -15,7 +15,29 @@ exports.getNotes = async (req, res) => {
   } catch (error) {
     console.error(error);
 
-    return res.status(500).json({ error: 'Server Error' });
+    return res.status(500).json({ error: "Server Error" });
+  }
+};
+
+// @desc  Get all notes for demo
+// @route GET /notes/demo
+// @access Public
+exports.getDemoNotes = async (req, res) => {
+  try {
+    const notes = await Note.find(
+      {},
+      { address: 1, city: 1, custName: 1, deliveryLocation: 1, suite: 1 }
+    ).sort({ custName: 1 });
+    console.log(notes);
+    return res.status(200).json({
+      success: true,
+      count: notes.length,
+      data: notes,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({ error: "Server Error" });
   }
 };
 
@@ -32,7 +54,7 @@ exports.addNote = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Server Error' });
+    return res.status(500).json({ error: "Server Error" });
   }
 };
 
@@ -50,7 +72,7 @@ exports.updateNote = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Server Error' });
+    return res.status(500).json({ error: "Server Error" });
   }
 };
 
@@ -64,7 +86,7 @@ exports.deleteNote = async (req, res) => {
     if (!note) {
       return res.status(404).json({
         success: false,
-        error: 'No note found',
+        error: "No note found",
       });
     }
     await note.remove();
@@ -74,6 +96,6 @@ exports.deleteNote = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: 'Server Error' });
+    return res.status(500).json({ error: "Server Error" });
   }
 };

@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 export default class Login extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      userName: '',
-      password: '',
-      error: '',
+      userName: "",
+      password: "",
+      error: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,10 +23,10 @@ export default class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    fetch('/api/v1/user/login', {
-      method: 'POST',
-      mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
+    fetch("/api/v1/user/login", {
+      method: "POST",
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         userName: this.state.userName,
         password: this.state.password,
@@ -33,13 +34,13 @@ export default class Login extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (Object.prototype.hasOwnProperty.call(data, 'error')) {
+        if (Object.prototype.hasOwnProperty.call(data, "error")) {
           this.setState({ error: data.error });
-          this.props.history.push('/');
+          this.props.history.push("/");
         }
-        if (Object.prototype.hasOwnProperty.call(data, 'token')) {
-          localStorage.setItem('token', data.token);
-          this.props.history.push('/stops');
+        if (Object.prototype.hasOwnProperty.call(data, "token")) {
+          localStorage.setItem("token", data.token);
+          this.props.history.push("/stops");
         }
       });
   }
@@ -67,6 +68,14 @@ export default class Login extends Component {
           />
 
           <input type="submit" value="Submit" />
+          <div>
+            <p>
+              Don't have an account?<Link to="/register"> Register User</Link>
+            </p>
+            <p>
+              Login as a Demo User <Link to="/demo"> Click Here</Link>
+            </p>
+          </div>
         </LoginForm>
       </div>
     );
@@ -90,7 +99,13 @@ const LoginForm = styled.form`
   flex-direction: column;
 
   input {
+    width: 20rem;
     margin: 0.5rem 0;
     padding: 1rem 0;
+    text-align: center;
+  }
+
+  input[type="submit"] {
+    width: 5rem;
   }
 `;

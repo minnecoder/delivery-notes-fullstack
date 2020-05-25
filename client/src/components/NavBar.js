@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { Link, withRouter } from 'react-router-dom';
+import React, { Component } from "react";
+import styled from "styled-components";
+import { Link, withRouter } from "react-router-dom";
 
 class NavBar extends Component {
   constructor(props) {
@@ -9,8 +9,8 @@ class NavBar extends Component {
   }
 
   logout() {
-    localStorage.removeItem('token');
-    this.props.history.push('/');
+    localStorage.removeItem("token");
+    this.props.history.push("/");
   }
 
   render() {

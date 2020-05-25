@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import SingleStop from './SingleStop';
+import React, { Component } from "react";
+import SingleStop from "./SingleStop";
 
 export default class FilterData extends Component {
   constructor(props) {
