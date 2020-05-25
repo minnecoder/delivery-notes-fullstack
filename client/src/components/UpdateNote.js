@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import NavBar from "./NavBar";
 
-export default class AddNote extends Component {
+export default class UpdateNote extends Component {
   constructor(props) {
     super(props);
+    console.log(this.props);
     const data = this.props.location.state.stop.stop;
+    console.log(data);
     this.state = {
-      id: data.id,
+      id: data._id,
       custName: data.custName,
       address: data.address,
       suite: data.suite,
@@ -27,7 +29,7 @@ export default class AddNote extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const token = localStorage.getItem("token");
-    fetch(`/api/v1/${this.state.id}`, {
+    fetch(`/api/v1/notes/${this.state.id}`, {
       method: "PUT",
       mode: "cors",
       headers: { "Content-Type": "application/json", Authorization: token },

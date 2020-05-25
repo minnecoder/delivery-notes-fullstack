@@ -63,6 +63,8 @@ exports.addNote = async (req, res) => {
 exports.updateNote = async (req, res) => {
   try {
     const note = await Note.findById(req.params.id).exec();
+    console.log(note);
+    console.log(req.body);
     note.set(req.body);
     await note.save();
     return res.status(200).json({

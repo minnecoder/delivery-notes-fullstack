@@ -25,7 +25,6 @@ function SingleStop(stop) {
           Notes: <span>{stop.stop.notes}</span>
         </p>
       )}
-
       <UpdateLink to={{ pathname: "/update", state: { stop } }}>
         Update Note
       </UpdateLink>

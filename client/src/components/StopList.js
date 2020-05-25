@@ -54,7 +54,6 @@ export default class StopList extends React.Component {
       <div>
         <NavBar />
         <Title>Stops</Title>
-        {console.log(filteredStops)}
         <StopListDiv>
           <Search type="text" placeholder="Search" onChange={this.onchange} />
           {filteredStops.map((stop) => (
