@@ -28,7 +28,6 @@ exports.getDemoNotes = async (req, res) => {
       {},
       { address: 1, city: 1, custName: 1, deliveryLocation: 1, suite: 1 }
     ).sort({ custName: 1 });
-    console.log(notes);
     return res.status(200).json({
       success: true,
       count: notes.length,

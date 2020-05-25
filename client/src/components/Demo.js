@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import SingleDemoStop from "./SingleDemoStop";
-import NavBar from "./NavBar";
+import DemoNavBar from "./DemoNavBar";
 
 export default class StopList extends React.Component {
   state = {
@@ -38,7 +38,7 @@ export default class StopList extends React.Component {
     if (!filteredStops.length && this.state.dataLoaded === true) {
       return (
         <div>
-          <NavBar />
+          <DemoNavBar />
           <Title>Stops</Title>
           <StopListDiv>
             <Search type="text" placeholder="Search" onChange={this.onchange} />
@@ -52,9 +52,8 @@ export default class StopList extends React.Component {
     }
     return (
       <div>
-        <NavBar />
+        <DemoNavBar />
         <Title>Stops</Title>
-        {console.log(filteredStops)}
         <StopListDiv>
           <Search type="text" placeholder="Search" onChange={this.onchange} />
           {filteredStops.map((stop) => (
@@ -77,6 +76,7 @@ const Search = styled.input`
   margin-bottom: 1rem;
   padding: 1rem 0;
   width: 50%;
+  text-align: center;
 `;
 const Title = styled.h1`
   color: red;

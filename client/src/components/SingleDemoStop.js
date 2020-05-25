@@ -20,10 +20,6 @@ function SingleStop(stop) {
       <p>
         Delivery Location: <span>{stop.stop.deliveryLocation}</span>
       </p>
-
-      <UpdateLink to={{ pathname: "/update", state: { stop } }}>
-        Update Note
-      </UpdateLink>
     </Main>
   );
 }

@@ -77,6 +77,7 @@ const Search = styled.input`
   margin-bottom: 1rem;
   padding: 1rem 0;
   width: 50%;
+  text-align: center;
 `;
 const Title = styled.h1`
   color: red;
