@@ -123,4 +123,10 @@ const UpdateForm = styled.form`
     padding: 1rem 0;
     width: 50%;
   }
+
+  input[type="submit"] {
+    margin: 0.5rem 0;
+    padding: 1rem 0;
+    width: 20%;
+  }
 `;
