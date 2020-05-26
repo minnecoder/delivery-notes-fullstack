@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 function SingleStop(stop) {
@@ -40,15 +40,4 @@ const Main = styled.div`
   span {
     font-weight: normal;
   }
-`;
-
-const UpdateLink = styled(Link)`
-  display: inline-block;
-  text-decoration: none;
-  font-weight: bold;
-  color: white;
-  background-color: red;
-  margin-bottom: 1rem;
-  padding: 0.5rem 1rem;
-  border: 1px solid red;
 `;

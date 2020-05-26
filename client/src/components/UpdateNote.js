@@ -5,7 +5,6 @@ import NavBar from "./NavBar";
 export default class UpdateNote extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
     const data = this.props.location.state.stop.stop;
     console.log(data);
     this.state = {
