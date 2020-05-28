@@ -60,7 +60,7 @@ export default class UpdateNote extends Component {
         notes: this.state.notes,
       }),
     });
-
+    localStorage.removeItem("data");
     this.props.history.push("/stops");
   }
 
