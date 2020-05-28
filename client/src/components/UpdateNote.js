@@ -5,17 +5,36 @@ import NavBar from "./NavBar";
 export default class UpdateNote extends Component {
   constructor(props) {
     super(props);
-    const data = this.props.location.state.stop.stop;
-    console.log(data);
-    this.state = {
-      id: data._id,
-      custName: data.custName,
-      address: data.address,
-      suite: data.suite,
-      city: data.city,
-      deliveryLocation: data.deliveryLocation,
-      notes: data.notes,
-    };
+
+    if (this.props.location.state !== undefined) {
+      const data = this.props.location.state.stop.stop;
+      localStorage.setItem("data", JSON.stringify(data));
+      console.log(data);
+      this.state = {
+        id: data._id,
+        custName: data.custName,
+        address: data.address,
+        suite: data.suite,
+        city: data.city,
+        deliveryLocation: data.deliveryLocation,
+        notes: data.notes,
+      };
+    }
+    if (this.props.location.state === undefined) {
+      const data = localStorage.getItem("data");
+      const dataObject = JSON.parse(data);
+      console.log(dataObject);
+      this.state = {
+        id: dataObject._id,
+        custName: dataObject.custName,
+        address: dataObject.address,
+        suite: dataObject.suite,
+        city: dataObject.city,
+        deliveryLocation: dataObject.deliveryLocation,
+        notes: dataObject.notes,
+      };
+    }
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
