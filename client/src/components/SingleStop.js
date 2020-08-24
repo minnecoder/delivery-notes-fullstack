@@ -5,26 +5,41 @@ import styled from "styled-components";
 function SingleStop(stop) {
   return (
     <Main>
-      <h3>{stop.stop.custName}</h3>
-      <p>
-        Address: <span>{stop.stop.address}</span>
-      </p>
-      {stop.stop.suite !== "" && (
-        <p>
-          Suite: <span>{stop.stop.suite}</span>
-        </p>
-      )}
-      <p>
-        City:<span> {stop.stop.city}</span>
-      </p>
-      <p>
-        Delivery Location: <span>{stop.stop.deliveryLocation}</span>
-      </p>
-      {stop.stop.notes !== "" && (
-        <p>
-          Notes: <span>{stop.stop.notes}</span>
-        </p>
-      )}
+      <StopTitle>{stop.stop.custName}</StopTitle>
+      <StopData>
+        <Left>
+          <p>
+            Address: <span>{stop.stop.address}</span>
+          </p>
+          {stop.stop.suite !== "" && (
+            <p>
+              Suite: <span>{stop.stop.suite}</span>
+            </p>
+          )}
+          <p>
+            City:<span> {stop.stop.city}</span>
+          </p>
+          <p>
+            Delivery Location: <span>{stop.stop.deliveryLocation}</span>
+          </p>
+
+          {stop.stop.notes !== "" && (
+            <p>
+              Notes: <span>{stop.stop.notes}</span>
+            </p>
+          )}
+        </Left>
+        <Right>
+          {stop.stop.signers !== "" && (
+            <SignerList>
+              <p>Past Signers</p>
+              <ul>
+                <li></li>
+              </ul>
+            </SignerList>
+          )}
+        </Right>
+      </StopData>
       <UpdateLink to={{ pathname: "/update", state: { stop } }}>
         Update Note
       </UpdateLink>
@@ -35,7 +50,7 @@ function SingleStop(stop) {
 export default withRouter(SingleStop);
 
 const Main = styled.div`
-  width: 50%;
+  width: 70%;
   padding-left: 2rem;
   margin: 0.5rem 0;
   border-radius: 8px;
@@ -50,13 +65,44 @@ const Main = styled.div`
   }
 `;
 
+const StopTitle = styled.h3`
+  text-align: center;
+`;
+
+const Left = styled.div`
+  // background: green;
+  padding: 0 1rem;
+  width: 50%;
+`;
+
+const Right = styled.div`
+  // background: red;
+  padding: 0 1rem;
+  width: 50%;
+`;
+
+const SignerList = styled.div`
+  ul {
+    list-style-type: none;
+  }
+`;
+
+const StopData = styled.div`
+  display: flex;
+  margin-right: 2rem;
+`;
+
 const UpdateLink = styled(Link)`
   display: inline-block;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
   text-decoration: none;
   font-weight: bold;
   color: white;
+  overflow: hidden;
   background-color: red;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   padding: 0.5rem 1rem;
   border: 1px solid red;
 `;
