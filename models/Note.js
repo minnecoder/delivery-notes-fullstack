@@ -19,6 +19,9 @@ const NoteSchema = new mongoose.Schema({
     required: [true, "Delivery Location is required"],
   },
   notes: String,
+  signers: {
+    type: Array,
+  },
   createdOn: {
     type: Date,
     default: Date.now,

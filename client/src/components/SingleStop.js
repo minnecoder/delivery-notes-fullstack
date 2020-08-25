@@ -30,19 +30,24 @@ function SingleStop(stop) {
           )}
         </Left>
         <Right>
+          {console.log(stop.stop.signers)}
           {stop.stop.signers !== "" && (
             <SignerList>
               <p>Past Signers</p>
               <ul>
-                <li></li>
+                {stop.stop.signers.map((signer) => {
+                  return <li key={signer}>{signer}</li>;
+                })}
               </ul>
             </SignerList>
           )}
         </Right>
       </StopData>
-      <UpdateLink to={{ pathname: "/update", state: { stop } }}>
-        Update Note
-      </UpdateLink>
+      <LinkArea>
+        <UpdateLink to={{ pathname: "/update", state: { stop } }}>
+          Update Note
+        </UpdateLink>
+      </LinkArea>
     </Main>
   );
 }
@@ -67,6 +72,7 @@ const Main = styled.div`
 
 const StopTitle = styled.h3`
   text-align: center;
+  font-size: 1.5rem;
 `;
 
 const Left = styled.div`
@@ -90,6 +96,10 @@ const SignerList = styled.div`
 const StopData = styled.div`
   display: flex;
   margin-right: 2rem;
+`;
+
+const LinkArea = styled.div`
+  text-align: center;
 `;
 
 const UpdateLink = styled(Link)`

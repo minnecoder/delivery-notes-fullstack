@@ -39,6 +39,7 @@ export default class AddNote extends Component {
         city: this.state.city,
         deliveryLocation: this.state.deliveryLocation,
         notes: this.state.notes,
+        signers: this.state.signers,
       }),
     });
     this.setState({
@@ -48,6 +49,7 @@ export default class AddNote extends Component {
       city: "",
       deliveryLocation: "",
       notes: "",
+      signers: "",
       error: "",
     });
     this.props.history.push("/stops");
@@ -100,6 +102,13 @@ export default class AddNote extends Component {
             type="text"
             placeholder="Notes"
             value={this.state.notes}
+            onChange={this.handleChange}
+          />
+          <input
+            name="signers"
+            type="text"
+            placeholder="Signers"
+            value={this.state.signers}
             onChange={this.handleChange}
           />
           <input type="submit" value="Add Note" onClick={this.handleSubmit} />

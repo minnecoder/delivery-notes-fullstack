@@ -18,6 +18,7 @@ export default class UpdateNote extends Component {
         city: data.city,
         deliveryLocation: data.deliveryLocation,
         notes: data.notes,
+        signers: data.signers,
       };
     }
     if (this.props.location.state === undefined) {
@@ -32,6 +33,7 @@ export default class UpdateNote extends Component {
         city: dataObject.city,
         deliveryLocation: dataObject.deliveryLocation,
         notes: dataObject.notes,
+        signers: dataObject.signers,
       };
     }
 
@@ -58,6 +60,7 @@ export default class UpdateNote extends Component {
         city: this.state.city,
         deliveryLocation: this.state.deliveryLocation,
         notes: this.state.notes,
+        signers: this.state.signers,
       }),
     });
     localStorage.removeItem("data");
@@ -111,6 +114,13 @@ export default class UpdateNote extends Component {
             type="text"
             placeholder="Notes"
             value={this.state.notes}
+            onChange={this.handleChange}
+          />
+          <input
+            name="signers"
+            type="text"
+            placeholder="Signers"
+            value={this.state.signers}
             onChange={this.handleChange}
           />
           <input
