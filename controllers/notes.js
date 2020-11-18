@@ -100,3 +100,24 @@ exports.deleteNote = async (req, res) => {
     return res.status(500).json({ error: "Server Error" });
   }
 };
+
+exports.addSigner = async (req, res) => {
+  try {
+    const note = await Note.findById(req.body.id);
+    if (!note) {
+      return res.status(404).json({
+        success: false,
+        error: "No note found",
+      });
+    }
+    note.signers.push(req.body.signerName);
+    await note.save();
+    return res.status(200).json({
+      success: true,
+      data: note,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Server Error" });
+  }
+};

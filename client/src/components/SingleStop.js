@@ -1,8 +1,36 @@
-import React from "react";
-import { withRouter, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 function SingleStop(stop) {
+  const [signerName, setSignerName] = useState("");
+
+  function refreshPage() {
+    window.location.reload();
+  }
+
+  const onSignerChange = (e) => setSignerName(e.target.value);
+
+  const handleSubmit = async (id) => {
+    const token = localStorage.getItem("token");
+    const data = { signerName, id };
+    const requestOptions = {
+      method: "PUT",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      body: JSON.stringify(data),
+    };
+    await fetch("/api/v1/notes", requestOptions)
+      .then((response) => response.json())
+      .then((res) => console.log(res));
+
+    await refreshPage();
+  };
+
+  // TODO: If in demo mode have signers show "dummy" names
   return (
     <Main>
       <StopTitle>{stop.stop.custName}</StopTitle>
@@ -30,7 +58,6 @@ function SingleStop(stop) {
           )}
         </Left>
         <Right>
-          {console.log(stop.stop.signers)}
           {stop.stop.signers !== "" && (
             <SignerList>
               <p>Past Signers</p>
@@ -41,6 +68,22 @@ function SingleStop(stop) {
               </ul>
             </SignerList>
           )}
+          <div>
+            <AddSignerText
+              placeholder="Signer Name"
+              type="text"
+              value={signerName}
+              onChange={onSignerChange}
+            />
+            <AddSignerBtn
+              onClick={() => {
+                handleSubmit(stop.stop._id);
+                setSignerName("");
+              }}
+            >
+              Add Signer
+            </AddSignerBtn>
+          </div>
         </Right>
       </StopData>
       <LinkArea>
@@ -52,7 +95,7 @@ function SingleStop(stop) {
   );
 }
 
-export default withRouter(SingleStop);
+export default SingleStop;
 
 const Main = styled.div`
   width: 70%;
@@ -76,13 +119,14 @@ const StopTitle = styled.h3`
 `;
 
 const Left = styled.div`
-  // background: green;
   padding: 0 1rem;
   width: 50%;
 `;
 
 const Right = styled.div`
-  // background: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 0 1rem;
   width: 50%;
 `;
@@ -104,9 +148,6 @@ const LinkArea = styled.div`
 
 const UpdateLink = styled(Link)`
   display: inline-block;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
   text-decoration: none;
   font-weight: bold;
   color: white;
@@ -115,4 +156,21 @@ const UpdateLink = styled(Link)`
   margin: 1rem 0;
   padding: 0.5rem 1rem;
   border: 1px solid red;
+`;
+
+const AddSignerBtn = styled.button`
+  display: inline-block;
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+  overflow: hidden;
+  background-color: red;
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  border: 1px solid red;
+`;
+
+const AddSignerText = styled.input`
+  padding: 0.5rem;
+  margin-right: 0.5rem;
 `;
