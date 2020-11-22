@@ -30,7 +30,6 @@ function SingleStop(stop) {
     await refreshPage();
   };
 
-  // TODO: If in demo mode have signers show "dummy" names
   return (
     <Main>
       <StopTitle>{stop.stop.custName}</StopTitle>

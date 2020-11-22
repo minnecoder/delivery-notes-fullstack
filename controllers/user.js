@@ -15,12 +15,11 @@ exports.addUser = async (req, res) => {
   // Create hashed password
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(req.body.password, salt);
-
   try {
     const user = await User.create({
       userName: req.body.userName,
       password: hashedPassword,
-      role: req.body.role,
+      role: "user",
     });
 
     return res.status(200).json({
