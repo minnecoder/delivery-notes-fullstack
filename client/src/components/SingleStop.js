@@ -120,6 +120,9 @@ const StopTitle = styled.h3`
 const Left = styled.div`
   padding: 0 1rem;
   width: 50%;
+  @media (max-width: 676px) {
+    width: 100%;
+  }
 `;
 
 const Right = styled.div`
@@ -128,6 +131,9 @@ const Right = styled.div`
   justify-content: space-between;
   padding: 0 1rem;
   width: 50%;
+  @media (max-width: 676px) {
+    width: 100%;
+  }
 `;
 
 const SignerList = styled.div`
@@ -139,6 +145,9 @@ const SignerList = styled.div`
 const StopData = styled.div`
   display: flex;
   margin-right: 2rem;
+  @media (max-width: 676px) {
+    flex-direction: column;
+  }
 `;
 
 const LinkArea = styled.div`
