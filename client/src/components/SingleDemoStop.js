@@ -1,12 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 function SingleStop(stop) {
-  const [signerName, setSignerName] = useState("");
-
-  const onSignerChange = (e) => setSignerName(e.target.value);
-
   const signers = ["J. Doe", "J. Smith", "B. Williams"];
 
   return (
@@ -89,21 +85,4 @@ const SignerList = styled.div`
   ul {
     list-style-type: none;
   }
-`;
-
-const AddSignerBtn = styled.button`
-  display: inline-block;
-  text-decoration: none;
-  font-weight: bold;
-  color: white;
-  overflow: hidden;
-  background-color: red;
-  margin: 1rem 0;
-  padding: 0.5rem 1rem;
-  border: 1px solid red;
-`;
-
-const AddSignerText = styled.input`
-  padding: 0.5rem;
-  margin-right: 0.5rem;
 `;
