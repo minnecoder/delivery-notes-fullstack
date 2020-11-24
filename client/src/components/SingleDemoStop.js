@@ -14,7 +14,6 @@ function SingleStop(stop) {
       <StopTitle>{stop.stop.custName}</StopTitle>
       <StopData>
         <Left>
-          <h3>{stop.stop.custName}</h3>
           <p>
             Address: <span>{stop.stop.address}</span>
           </p>
@@ -41,21 +40,6 @@ function SingleStop(stop) {
               </ul>
             </SignerList>
           )}
-          <div>
-            <AddSignerText
-              placeholder="Signer Name"
-              type="text"
-              value={signerName}
-              onChange={onSignerChange}
-            />
-            <AddSignerBtn
-              onClick={() => {
-                setSignerName("");
-              }}
-            >
-              Add Signer
-            </AddSignerBtn>
-          </div>
         </Right>
       </StopData>
     </Main>
