@@ -23,8 +23,8 @@ app.use(cors());
 const notes = require("./routes/notes");
 const user = require("./routes/user");
 
-app.use("	https://notes-fullstack-demo.herokuapp.com/api/v1/notes", notes);
-app.use("	https://notes-fullstack-demo.herokuapp.com/api/v1/user", user);
+app.use("/api/v1/notes", notes);
+app.use("/api/v1/user", user);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
