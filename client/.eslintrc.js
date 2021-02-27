@@ -26,5 +26,4 @@ module.exports = {
         "max-len": 0,
         "no-underscore-dangle": 0
     },
-    "parser": "babel-eslint"
 };
