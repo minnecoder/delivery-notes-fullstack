@@ -23,7 +23,7 @@ export default class Login extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    fetch("/api/v1/user/login", {
+    fetch("https://notes-fullstack-demo.herokuapp.com/api/v1/user/login", {
       method: "POST",
       mode: "cors",
       headers: { "Content-Type": "application/json" },
