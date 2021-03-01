@@ -90,6 +90,8 @@ const LoginTitle = styled.h1`
 
 const Error = styled.p`
   text-align: center;
+  color: red;
+  font-weight: bold;
 `;
 
 const LoginForm = styled.form`
