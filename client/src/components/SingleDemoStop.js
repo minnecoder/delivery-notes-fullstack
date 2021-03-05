@@ -45,7 +45,7 @@ function SingleStop(stop) {
 export default withRouter(SingleStop);
 
 const Main = styled.div`
-  width: 50%;
+  width: 70%;
   padding-left: 2rem;
   margin: 0.5rem 0;
   border-radius: 8px;
@@ -64,13 +64,13 @@ const StopTitle = styled.h3`
   font-size: 1.5rem;
 `;
 
-const StopData = styled.div`
-  display: flex;
-  margin-right: 2rem;
-`;
+
 const Left = styled.div`
   padding: 0 1rem;
   width: 50%;
+  @media (max-width: 676px) {
+    width: 100%;
+  }
 `;
 
 const Right = styled.div`
@@ -78,11 +78,22 @@ const Right = styled.div`
   flex-direction: column;
   justify-content: space-between;
   padding: 0 1rem;
-  width: 50 %;
+  width: 50%;
+  @media (max-width: 676px) {
+    width: 100%;
+  }
 `;
 
 const SignerList = styled.div`
   ul {
     list-style-type: none;
+  }
+`;
+
+const StopData = styled.div`
+  display: flex;
+  margin-right: 2rem;
+  @media (max-width: 676px) {
+    flex-direction: column;
   }
 `;
