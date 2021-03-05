@@ -103,7 +103,6 @@ const Main = styled.div`
   border-radius: 8px;
   border: solid 1px black;
   background-color: white;
-
   p {
     font-weight: bold;
   }
@@ -164,6 +163,7 @@ const UpdateLink = styled(Link)`
   margin: 1rem 0;
   padding: 0.5rem 1rem;
   border: 1px solid red;
+  border-radius: 5px;
 `;
 
 const AddSignerBtn = styled.button`
@@ -176,6 +176,7 @@ const AddSignerBtn = styled.button`
   margin: 1rem 0;
   padding: 0.5rem 1rem;
   border: 1px solid red;
+  border-radius: 5px;
 `;
 
 const AddSignerText = styled.input`
