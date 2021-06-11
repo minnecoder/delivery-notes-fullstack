@@ -1,21 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import SingleStop from "./SingleStop";
 import NavBar from "./NavBar";
 
-export default class StopList extends React.Component {
-  state = {
-    stops: [],
-    search: "",
-    dataLoaded: false,
-  };
+export default function StopList() {
+  const [stops, setStops] = useState([])
+  const [search, setSearch] = useState("")
+  const [dataLoaded, setDataLoaded] = useState(false)
 
   onchange = (e) => {
-    this.setState({ search: e.target.value });
+    setSearch(e.target.value);
   };
 
-  componentDidMount() {
+  useEffect(() => {
     const token = localStorage.getItem("token");
     fetch("/api/v1/notes", {
       method: "GET",
@@ -23,46 +21,47 @@ export default class StopList extends React.Component {
       headers: { Authorization: token },
     })
       .then((res) => res.json())
-      .then((data) => this.setState({ stops: data.data, dataLoaded: true }))
+      .then((data) => {
+        setStops(data.data)
+        setDataLoaded(true)
+      })
       .catch((error) => {
         console.log(error);
         this.props.history.push("/");
       });
-  }
+  }, [stops])
 
-  render() {
-    const { search } = this.state;
-    const filteredStops = this.state.stops.filter(
-      (stop) => stop.custName.toLowerCase().indexOf(search.toLowerCase()) !== -1
-    );
-    if (!filteredStops.length && this.state.dataLoaded === true) {
-      return (
-        <div>
-          <NavBar />
-          <Title>Stops</Title>
-          <StopListDiv>
-            <Search type="text" placeholder="Search" onChange={this.onchange} />
-            <p>
-              There were no matches for that search. Would you like to add one?
-            </p>
-            <AddLink to="/add">Add</AddLink>
-          </StopListDiv>
-        </div>
-      );
-    }
+  const filteredStops = stops.filter(
+    (stop) => stop.custName.toLowerCase().indexOf(search.toLowerCase()) !== -1
+  );
+  if (!filteredStops.length && dataLoaded === true) {
     return (
       <div>
         <NavBar />
         <Title>Stops</Title>
         <StopListDiv>
-          <Search type="text" placeholder="Search" onChange={this.onchange} />
-          {filteredStops.map((stop) => (
-            <SingleStop key={stop._id} stop={stop} />
-          ))}
+          <Search type="text" placeholder="Search" onChange={onchange()} />
+          <p>
+            There were no matches for that search. Would you like to add one?
+            </p>
+          <AddLink to="/add">Add</AddLink>
         </StopListDiv>
       </div>
     );
   }
+
+  return (
+    <div>
+      <NavBar />
+      <Title>Stops</Title>
+      <StopListDiv>
+        <Search type="text" placeholder="Search" onChange={onchange()} />
+        {filteredStops.map((stop) => (
+          <SingleStop key={stop._id} stop={stop} />
+        ))}
+      </StopListDiv>
+    </div>
+  )
 }
 
 const StopListDiv = styled.div`
