@@ -9,7 +9,10 @@ function SingleStop(stop) {
     window.location.reload();
   }
 
-  const onSignerChange = (e) => setSignerName(e.target.value);
+  const onSignerChange = event => {
+    event.persist();
+    setSignerName(prevSigner => ({ ...prevSigner, [event.target.name]: event.target.value }))
+  }
 
   const handleSubmit = async (id) => {
     const token = localStorage.getItem("token");
