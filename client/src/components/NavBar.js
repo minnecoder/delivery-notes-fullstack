@@ -15,7 +15,7 @@ function NavBar() {
     <Main>
       <NavLink to="/add">Add</NavLink>
       <NavLink to="/stops">Stops</NavLink>
-      <NavLink to="" onClick={logout()}>
+      <NavLink to="" onClick={logout}>
         Log Out
         </NavLink>
     </Main>
