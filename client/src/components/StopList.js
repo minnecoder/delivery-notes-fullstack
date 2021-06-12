@@ -27,7 +27,7 @@ export default function StopList() {
         console.log(error);
         history.push("/");
       });
-  }, [stops])
+  }, [dataLoaded])
 
   const filteredStops = stops.filter(
     (stop) => stop.custName.toLowerCase().indexOf(search.toLowerCase()) !== -1
