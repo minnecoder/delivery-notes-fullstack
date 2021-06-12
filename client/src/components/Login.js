@@ -11,13 +11,12 @@ export default function Login() {
     error: ""
   })
 
-  function handleChange(event) {
-    setUser({ error: undefined });
-    setUser({ [event.target.name]: event.target.value });
-    event.preventDefault();
+  const handleChange = event => {
+    event.persist();
+    setUser(prevUser => ({ ...prevUser, [event.target.name]: event.target.value }));
   }
 
-  function handleSubmit(event) {
+  const handleSubmit = event => {
     event.preventDefault();
     fetch("/api/v1/user/login", {
       method: "POST",
@@ -45,13 +44,13 @@ export default function Login() {
     <div>
       <LoginTitle>Delivery Notes</LoginTitle>
       <Error>{user.error}</Error>
-      <LoginForm onSubmit={handleSubmit()}>
+      <LoginForm onSubmit={handleSubmit}>
         <input
           name="userName"
           type="text"
           placeholder="User Name"
           value={user.userName}
-          onChange={handleChange()}
+          onChange={handleChange}
         />
 
         <input
@@ -59,7 +58,7 @@ export default function Login() {
           type="password"
           placeholder="Password"
           value={user.password}
-          onChange={handleChange()}
+          onChange={handleChange}
         />
 
         <input type="submit" value="Submit" />
