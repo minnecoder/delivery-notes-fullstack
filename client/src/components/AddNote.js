@@ -1,48 +1,42 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import NavBar from "./NavBar";
 
-export default class AddNote extends Component {
-  constructor(props) {
-    super(props);
+export default function AddNote() {
+  const [stop, setStop] = useState({
+    custName: "",
+    address: "",
+    suite: "",
+    city: "",
+    deliveryLocation: "",
+    notes: "",
+    error: "",
+  })
 
-    this.state = {
-      custName: "",
-      address: "",
-      suite: "",
-      city: "",
-      deliveryLocation: "",
-      notes: "",
-      error: "",
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  function handleChange(e) {
+    setStop.error(undefined);
+    setStop([e.target.name], e.target.value);
+    e.preventDefault();
   }
 
-  handleChange(event) {
-    this.setState({ error: undefined });
-    this.setState({ [event.target.name]: event.target.value });
-    event.preventDefault();
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
+  function handleSubmit(e) {
+    e.preventDefault();
     const token = localStorage.getItem("token");
     fetch("/api/v1/notes", {
       method: "POST",
       mode: "cors",
       headers: { "Content-Type": "application/json", Authorization: token },
       body: JSON.stringify({
-        custName: this.state.custName,
-        address: this.state.address,
-        suite: this.state.suite,
-        city: this.state.city,
-        deliveryLocation: this.state.deliveryLocation,
-        notes: this.state.notes,
-        signers: this.state.signers,
+        custName: stop.custName,
+        address: stop.address,
+        suite: stop.suite,
+        city: stop.city,
+        deliveryLocation: stop.deliveryLocation,
+        notes: stop.notes,
+        signers: stop.signers,
       }),
     });
-    this.setState({
+    setStop({
       custName: "",
       address: "",
       suite: "",
@@ -55,67 +49,65 @@ export default class AddNote extends Component {
     this.props.history.push("/stops");
   }
 
-  render() {
-    return (
-      <div>
-        <NavBar />
-        <AddTitle>Add Stop</AddTitle>
-        <p>{this.state.error}</p>
-        <AddForm>
-          <input
-            name="custName"
-            type="text"
-            placeholder="Customer Name"
-            value={this.state.custName}
-            onChange={this.handleChange}
-          />
-          <input
-            name="address"
-            type="text"
-            placeholder="Address"
-            value={this.state.address}
-            onChange={this.handleChange}
-          />
-          <input
-            name="suite"
-            type="text"
-            placeholder="Suite"
-            value={this.state.suite}
-            onChange={this.handleChange}
-          />
-          <input
-            name="city"
-            type="text"
-            placeholder="City"
-            value={this.state.city}
-            onChange={this.handleChange}
-          />
-          <input
-            name="deliveryLocation"
-            type="text"
-            placeholder="Delivery Location"
-            value={this.state.deliveryLocation}
-            onChange={this.handleChange}
-          />
-          <input
-            name="notes"
-            type="text"
-            placeholder="Notes"
-            value={this.state.notes}
-            onChange={this.handleChange}
-          />
-          <input
-            name="signers"
-            type="text"
-            placeholder="Signers"
-            value={this.state.signers}
-            onChange={this.handleChange}
-          />
-          <input type="submit" value="Add Note" onClick={this.handleSubmit} />
-        </AddForm>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <NavBar />
+      <AddTitle>Add Stop</AddTitle>
+      <p>{stop.error}</p>
+      <AddForm>
+        <input
+          name="custName"
+          type="text"
+          placeholder="Customer Name"
+          value={stop.custName}
+          onChange={handleChange()}
+        />
+        <input
+          name="address"
+          type="text"
+          placeholder="Address"
+          value={stop.address}
+          onChange={handleChange()}
+        />
+        <input
+          name="suite"
+          type="text"
+          placeholder="Suite"
+          value={stop.suite}
+          onChange={handleChange()}
+        />
+        <input
+          name="city"
+          type="text"
+          placeholder="City"
+          value={stop.city}
+          onChange={handleChange()}
+        />
+        <input
+          name="deliveryLocation"
+          type="text"
+          placeholder="Delivery Location"
+          value={stop.deliveryLocation}
+          onChange={handleChange()}
+        />
+        <input
+          name="notes"
+          type="text"
+          placeholder="Notes"
+          value={stop.notes}
+          onChange={handleChange()}
+        />
+        <input
+          name="signers"
+          type="text"
+          placeholder="Signers"
+          value={stop.signers}
+          onChange={handleChange()}
+        />
+        <input type="submit" value="Add Note" onClick={handleSubmit()} />
+      </AddForm>
+    </div>
+  )
 }
 
 const AddTitle = styled.h1`
