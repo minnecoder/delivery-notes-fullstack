@@ -1,25 +1,22 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router"
 import styled from "styled-components";
 
-export default class Register extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userName: "",
-      password: "",
-      error: "",
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+export default function Register() {
+  const history = useHistory()
+  const [user, setUser] = useState({
+    userName: "",
+    password: "",
+    error: "",
+  })
 
-  handleChange(event) {
-    this.setState({ error: undefined });
-    this.setState({ [event.target.name]: event.target.value });
+  function handleChange(event) {
+    setUser({ error: undefined });
+    setUser({ [event.target.name]: event.target.value });
     event.preventDefault();
   }
 
-  handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
     fetch("/api/v1/user/add", {
       method: "POST",
@@ -28,52 +25,50 @@ export default class Register extends Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        userName: this.state.userName,
-        password: this.state.password,
+        userName: user.userName,
+        password: user.password,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         if (Object.prototype.hasOwnProperty.call(data, "error")) {
-          this.setState({ error: data.error });
-          this.props.history.push("/");
+          setUser({ error: data.error });
+          history.push("/");
         }
         if (Object.prototype.hasOwnProperty.call(data, "success")) {
           localStorage.setItem("token", data.token);
-          this.props.history.push("/stops");
+          history.push("/stops");
         }
       });
   }
 
-  render() {
-    return (
-      <div>
-        <RegisterTitle>Delivery Notes</RegisterTitle>
-        <Error>{this.state.error}</Error>
-        <RegisterForm onSubmit={this.handleSubmit}>
-          <input
-            required
-            name="userName"
-            type="text"
-            placeholder="User Name"
-            value={this.state.userName}
-            onChange={this.handleChange}
-          />
+  return (
+    <div>
+      <RegisterTitle>Delivery Notes</RegisterTitle>
+      <Error>{user.error}</Error>
+      <RegisterForm onSubmit={handleSubmit()}>
+        <input
+          required
+          name="userName"
+          type="text"
+          placeholder="User Name"
+          value={user.userName}
+          onChange={handleChange()}
+        />
 
-          <input
-            required
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleChange}
-          />
+        <input
+          required
+          name="password"
+          type="password"
+          placeholder="Password"
+          value={user.password}
+          onChange={handleChange()}
+        />
 
-          <input type="submit" value="Submit" />
-        </RegisterForm>
-      </div>
-    );
-  }
+        <input type="submit" value="Submit" />
+      </RegisterForm>
+    </div>
+  )
 }
 
 const RegisterTitle = styled.h1`

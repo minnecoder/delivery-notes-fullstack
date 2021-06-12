@@ -1,137 +1,141 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router"
 import styled from "styled-components";
 import NavBar from "./NavBar";
 
-export default class UpdateNote extends Component {
-  constructor(props) {
-    super(props);
+export default function UpdateNote(stop) {
+  const history = useHistory()
+  const [stopData, setStopData] = useState({
+    id: "",
+    custName: "",
+    address: "",
+    suite: "",
+    city: "",
+    deliveryLocation: "",
+    notes: "",
+    signers: "",
+  })
 
-    if (this.props.location.state !== undefined) {
-      const data = this.props.location.state.stop.stop;
-      localStorage.setItem("data", JSON.stringify(data));
-      console.log(data);
-      this.state = {
-        id: data._id,
-        custName: data.custName,
-        address: data.address,
-        suite: data.suite,
-        city: data.city,
-        deliveryLocation: data.deliveryLocation,
-        notes: data.notes,
-        signers: data.signers,
-      };
-    }
-    if (this.props.location.state === undefined) {
-      const data = localStorage.getItem("data");
-      const dataObject = JSON.parse(data);
-      console.log(dataObject);
-      this.state = {
-        id: dataObject._id,
-        custName: dataObject.custName,
-        address: dataObject.address,
-        suite: dataObject.suite,
-        city: dataObject.city,
-        deliveryLocation: dataObject.deliveryLocation,
-        notes: dataObject.notes,
-        signers: dataObject.signers,
-      };
-    }
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+  if (stop.location.state !== undefined) {
+    const data = stop.location.state.stop.stop;
+    localStorage.setItem("data", JSON.stringify(data));
+    console.log(data);
+    setStopData({
+      id: data._id,
+      custName: data.custName,
+      address: data.address,
+      suite: data.suite,
+      city: data.city,
+      deliveryLocation: data.deliveryLocation,
+      notes: data.notes,
+      signers: data.signers,
+    });
+  }
+  if (stop.location.state === undefined) {
+    const data = localStorage.getItem("data");
+    const dataObject = JSON.parse(data);
+    console.log(dataObject);
+    setStopData({
+      id: dataObject._id,
+      custName: dataObject.custName,
+      address: dataObject.address,
+      suite: dataObject.suite,
+      city: dataObject.city,
+      deliveryLocation: dataObject.deliveryLocation,
+      notes: dataObject.notes,
+      signers: dataObject.signers,
+    });
   }
 
-  handleChange(event) {
+  function handleChange(event) {
     this.setState({ [event.target.name]: event.target.value });
     event.preventDefault();
   }
 
-  handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
     const token = localStorage.getItem("token");
-    fetch(`/api/v1/notes/${this.state.id}`, {
+    fetch(`/api/v1/notes/${stopData.id}`, {
       method: "PUT",
       mode: "cors",
       headers: { "Content-Type": "application/json", Authorization: token },
       body: JSON.stringify({
-        custName: this.state.custName,
-        address: this.state.address,
-        suite: this.state.suite,
-        city: this.state.city,
-        deliveryLocation: this.state.deliveryLocation,
-        notes: this.state.notes,
-        signers: this.state.signers,
+        custName: stopData.custName,
+        address: stopData.address,
+        suite: stopData.suite,
+        city: stopData.city,
+        deliveryLocation: stopData.deliveryLocation,
+        notes: stopData.notes,
+        signers: stopData.signers,
       }),
     });
     localStorage.removeItem("data");
-    this.props.history.push("/stops");
+    history.push("/stops");
   }
 
-  render() {
-    return (
-      <div>
-        <NavBar />
-        <UpdateTitle>Update Stop</UpdateTitle>
-        <p>{this.state.error}</p>
-        <UpdateForm>
-          <input
-            name="custName"
-            type="text"
-            placeholder="Customer Name"
-            value={this.state.custName}
-            onChange={this.handleChange}
-          />
-          <input
-            name="address"
-            type="text"
-            placeholder="Address"
-            value={this.state.address}
-            onChange={this.handleChange}
-          />
-          <input
-            name="suite"
-            type="text"
-            placeholder="Suite"
-            value={this.state.suite}
-            onChange={this.handleChange}
-          />
-          <input
-            name="city"
-            type="text"
-            placeholder="City"
-            value={this.state.city}
-            onChange={this.handleChange}
-          />
-          <input
-            name="deliveryLocation"
-            type="text"
-            placeholder="Delivery Location"
-            value={this.state.deliveryLocation}
-            onChange={this.handleChange}
-          />
-          <input
-            name="notes"
-            type="text"
-            placeholder="Notes"
-            value={this.state.notes}
-            onChange={this.handleChange}
-          />
-          <input
-            name="signers"
-            type="text"
-            placeholder="Signers"
-            value={this.state.signers}
-            onChange={this.handleChange}
-          />
-          <input
-            type="submit"
-            value="Update Note"
-            onClick={this.handleSubmit}
-          />
-        </UpdateForm>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <NavBar />
+      <UpdateTitle>Update Stop</UpdateTitle>
+      <p>{stopData.error}</p>
+      <UpdateForm>
+        <input
+          name="custName"
+          type="text"
+          placeholder="Customer Name"
+          value={stopData.custName}
+          onChange={handleChange()}
+        />
+        <input
+          name="address"
+          type="text"
+          placeholder="Address"
+          value={stopData.address}
+          onChange={handleChange()}
+        />
+        <input
+          name="suite"
+          type="text"
+          placeholder="Suite"
+          value={stopData.suite}
+          onChange={handleChange()}
+        />
+        <input
+          name="city"
+          type="text"
+          placeholder="City"
+          value={stopData.city}
+          onChange={handleChange()}
+        />
+        <input
+          name="deliveryLocation"
+          type="text"
+          placeholder="Delivery Location"
+          value={stopData.deliveryLocation}
+          onChange={handleChange()}
+        />
+        <input
+          name="notes"
+          type="text"
+          placeholder="Notes"
+          value={stopData.notes}
+          onChange={handleChange()}
+        />
+        <input
+          name="signers"
+          type="text"
+          placeholder="Signers"
+          value={stopData.signers}
+          onChange={handleChange()}
+        />
+        <input
+          type="submit"
+          value="Update Note"
+          onClick={handleSubmit()}
+        />
+      </UpdateForm>
+    </div>
+  )
 }
 
 const UpdateTitle = styled.h1`

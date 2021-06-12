@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router"
 import styled from "styled-components";
 import SingleStop from "./SingleStop";
 import NavBar from "./NavBar";
 
 export default function StopList() {
+  const history = useHistory()
   const [stops, setStops] = useState([])
   const [search, setSearch] = useState("")
   const [dataLoaded, setDataLoaded] = useState(false)
-
-  onchange = (e) => {
-    setSearch(e.target.value);
-  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -27,7 +25,7 @@ export default function StopList() {
       })
       .catch((error) => {
         console.log(error);
-        this.props.history.push("/");
+        history.push("/");
       });
   }, [stops])
 
@@ -40,7 +38,7 @@ export default function StopList() {
         <NavBar />
         <Title>Stops</Title>
         <StopListDiv>
-          <Search type="text" placeholder="Search" onChange={onchange()} />
+          <Search type="text" placeholder="Search" onChange={e => setSearch(e.target.value)} />
           <p>
             There were no matches for that search. Would you like to add one?
             </p>
@@ -55,7 +53,7 @@ export default function StopList() {
       <NavBar />
       <Title>Stops</Title>
       <StopListDiv>
-        <Search type="text" placeholder="Search" onChange={onchange()} />
+        <Search type="text" placeholder="Search" onChange={e => setSearch(e.target.value)} />
         {filteredStops.map((stop) => (
           <SingleStop key={stop._id} stop={stop} />
         ))}

@@ -1,42 +1,33 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import SingleStop from "./SingleStop";
 
-export default class FilterData extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      initialStops: [],
-      stops: [],
-    };
-  }
+export default function FilterData(stops) {
+  const [intialStops, setInitialStops] = useState([])
+  const [stops, setStops] = useState([])
 
-  filterList() {
-    const stops = this.state.initialStops;
+  useEffect(() => {
+    setInitialStops(stops.content);
+    setStops(stops.content)
+    console.log(stops.content);
+  })
+
+  function filterList() {
+    const stops = initialStops;
     console.log(stops);
-    this.setState({ stops });
+    setStops(stops);
   }
 
-  componentDidMount() {
-    this.setState({
-      initialStops: this.props.content,
-      stops: this.props.content,
-    });
-    console.log(this.props.content);
-  }
+  return (
+    <div>
+      <form>
+        <input type="text" placeholder="Search" onChange={this.filterList} />
+      </form>
 
-  render() {
-    return (
       <div>
-        <form>
-          <input type="text" placeholder="Search" onChange={this.filterList} />
-        </form>
-
-        <div>
-          {this.state.stops.map((stop) => (
-            <SingleStop key={stop.id} stop={stop} />
-          ))}
-        </div>
+        {this.state.stops.map((stop) => (
+          <SingleStop key={stop.id} stop={stop} />
+        ))}
       </div>
-    );
-  }
+    </div>
+  )
 }

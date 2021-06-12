@@ -1,35 +1,30 @@
-import React, { Component } from "react";
+import React from "react";
+import { useHistory } from "react-router"
 import styled from "styled-components";
 import { Link, withRouter } from "react-router-dom";
 
-class NavBar extends Component {
-  constructor(props) {
-    super(props);
-    this.logout = this.logout.bind(this);
-  }
+function NavBar() {
+  const history = useHistory()
 
-  logout() {
+  function logout() {
     localStorage.removeItem("token");
-    this.props.history.push("/");
+    history.push("/");
   }
 
-  render() {
-    return (
-      <Main>
-        <NavLink to="/add">Add</NavLink>
-        <NavLink to="/stops">Stops</NavLink>
-        <NavLink to="" onClick={this.logout}>
-          Log Out
+  return (
+    <Main>
+      <NavLink to="/add">Add</NavLink>
+      <NavLink to="/stops">Stops</NavLink>
+      <NavLink to="" onClick={logout()}>
+        Log Out
         </NavLink>
-      </Main>
-    );
-  }
+    </Main>
+  )
 }
 
 export default withRouter(NavBar);
 
 const Main = styled.div`
-  //   width: 50%;
   border: 1px solid lightgray;
   background: white;
   text-align: center;

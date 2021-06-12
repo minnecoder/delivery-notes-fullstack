@@ -1,85 +1,79 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router"
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
+export default function Login() {
+  const history = useHistory()
+  const [user, setUser] = useState({
+    userName: "",
+    password: "",
+    error: ""
+  })
 
-    this.state = {
-      userName: "",
-      password: "",
-      error: "",
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({ error: undefined });
-    this.setState({ [event.target.name]: event.target.value });
+  function handleChange(event) {
+    setUser({ error: undefined });
+    setUser({ [event.target.name]: event.target.value });
     event.preventDefault();
   }
 
-  handleSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
     fetch("/api/v1/user/login", {
       method: "POST",
       mode: "cors",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        userName: this.state.userName,
-        password: this.state.password,
+        userName: user.userName,
+        password: user.password,
       }),
     })
       .then((res) => res.json())
       .then((data) => {
         if (Object.prototype.hasOwnProperty.call(data, "error")) {
-          this.setState({ error: data.error });
-          this.props.history.push("/");
+          setUser({ error: data.error });
+          history.push("/");
         }
         if (Object.prototype.hasOwnProperty.call(data, "token")) {
           localStorage.setItem("token", data.token);
-          this.props.history.push("/stops");
+          history.push("/stops");
         }
       });
   }
 
-  render() {
-    return (
-      <div>
-        <LoginTitle>Delivery Notes</LoginTitle>
-        <Error>{this.state.error}</Error>
-        <LoginForm onSubmit={this.handleSubmit}>
-          <input
-            name="userName"
-            type="text"
-            placeholder="User Name"
-            value={this.state.userName}
-            onChange={this.handleChange}
-          />
+  return (
+    <div>
+      <LoginTitle>Delivery Notes</LoginTitle>
+      <Error>{user.error}</Error>
+      <LoginForm onSubmit={handleSubmit()}>
+        <input
+          name="userName"
+          type="text"
+          placeholder="User Name"
+          value={user.userName}
+          onChange={handleChange()}
+        />
 
-          <input
-            name="password"
-            type="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleChange}
-          />
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          value={user.password}
+          onChange={handleChange()}
+        />
 
-          <input type="submit" value="Submit" />
-          <div>
-            <p>
-              Don't have an account?<Link to="/register"> Register User</Link>
-            </p>
-            <p>
-              Login as a Demo User <Link to="/demo"> Click Here</Link>
-            </p>
-          </div>
-        </LoginForm>
-      </div>
-    );
-  }
+        <input type="submit" value="Submit" />
+        <div>
+          <p>
+            Don't have an account?<Link to="/register"> Register User</Link>
+          </p>
+          <p>
+            Login as a Demo User <Link to="/demo"> Click Here</Link>
+          </p>
+        </div>
+      </LoginForm>
+    </div>
+  )
 }
 
 const LoginTitle = styled.h1`
