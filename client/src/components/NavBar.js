@@ -25,9 +25,9 @@ function NavBar() {
 export default withRouter(NavBar);
 
 const Main = styled.div`
-  border: 1px solid lightgray;
-  background: white;
+  background: #D0D1D4;
   text-align: center;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2)
 `;
 
 const NavLink = styled(Link)`

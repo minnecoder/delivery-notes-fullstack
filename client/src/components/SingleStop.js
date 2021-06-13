@@ -104,7 +104,6 @@ const Main = styled.div`
   padding-left: 2rem;
   margin: 0.5rem 0;
   border-radius: 8px;
-  border: solid 1px black;
   background-color: white;
   p {
     font-weight: bold;
@@ -112,6 +111,7 @@ const Main = styled.div`
   span {
     font-weight: normal;
   }
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 `;
 
 const StopTitle = styled.h3`
@@ -162,10 +162,11 @@ const UpdateLink = styled(Link)`
   font-weight: bold;
   color: white;
   overflow: hidden;
-  background-color: red;
+  background-color: #767676;
   margin: 1rem 0;
   padding: 0.5rem 1rem;
-  border: 1px solid red;
+  border: 1px solid #767676;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
 `;
 
@@ -175,10 +176,11 @@ const AddSignerBtn = styled.button`
   font-weight: bold;
   color: white;
   overflow: hidden;
-  background-color: red;
+  background-color: #767676;
   margin: 1rem 0;
   padding: 0.5rem 1rem;
-  border: 1px solid red;
+  border: 1px solid #767676;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
 `;
 

@@ -41,7 +41,7 @@ export default function Login() {
   }
 
   return (
-    <div>
+    <Main>
       <LoginTitle>Delivery Notes</LoginTitle>
       <Error>{user.error}</Error>
       <LoginForm onSubmit={handleSubmit}>
@@ -71,9 +71,13 @@ export default function Login() {
           </p>
         </div>
       </LoginForm>
-    </div>
+    </Main>
   )
 }
+
+const Main = styled.div`
+background: #C0C6C8;
+`
 
 const LoginTitle = styled.h1`
   text-align: center;
@@ -98,9 +102,15 @@ const LoginForm = styled.form`
     margin: 0.5rem 0;
     padding: 1rem 0;
     text-align: center;
+    border-radius: 8px;
+    border: solid 1px #C0C6C8;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   }
 
   input[type="submit"] {
     width: 5rem;
+    background: #767676;
+    color: white;
+    border: solid 1px #767676;
   }
 `;

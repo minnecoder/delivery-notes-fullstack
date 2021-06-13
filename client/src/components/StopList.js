@@ -49,7 +49,7 @@ export default function StopList() {
   }
 
   return (
-    <div>
+    <Main>
       <NavBar />
       <Title>Stops</Title>
       <StopListDiv>
@@ -58,15 +58,20 @@ export default function StopList() {
           <SingleStop key={stop._id} stop={stop} />
         ))}
       </StopListDiv>
-    </div>
+    </Main>
   )
 }
+
+const Main = styled.div`
+background: #C0C6C8;
+`
 
 const StopListDiv = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  
 `;
 
 const Search = styled.input`
@@ -74,11 +79,15 @@ const Search = styled.input`
   padding: 1rem 0;
   width: 50%;
   text-align: center;
+  border-radius: 8px;
+  border: solid 1px #C0C6C8;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 `;
 const Title = styled.h1`
   color: red;
   font-size: 3rem;
   text-align: center;
+  background: #C0C6C8;
 `;
 
 const AddLink = styled(Link)`
