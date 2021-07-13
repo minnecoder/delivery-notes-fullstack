@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router"
 import styled from "styled-components";
 import NavBar from "./NavBar";
 
 export default function UpdateNote(stop) {
   const history = useHistory()
+  const [dataLoaded, setDataLoaded] = useState(false)
   const [stopData, setStopData] = useState({
     id: "",
     custName: "",
@@ -16,43 +17,49 @@ export default function UpdateNote(stop) {
     signers: "",
   })
 
-  if (stop.location.state !== undefined) {
-    const data = stop.location.state.stop.stop;
-    localStorage.setItem("data", JSON.stringify(data));
-    console.log(data);
-    setStopData({
-      id: data._id,
-      custName: data.custName,
-      address: data.address,
-      suite: data.suite,
-      city: data.city,
-      deliveryLocation: data.deliveryLocation,
-      notes: data.notes,
-      signers: data.signers,
-    });
-  }
-  if (stop.location.state === undefined) {
-    const data = localStorage.getItem("data");
-    const dataObject = JSON.parse(data);
-    console.log(dataObject);
-    setStopData({
-      id: dataObject._id,
-      custName: dataObject.custName,
-      address: dataObject.address,
-      suite: dataObject.suite,
-      city: dataObject.city,
-      deliveryLocation: dataObject.deliveryLocation,
-      notes: dataObject.notes,
-      signers: dataObject.signers,
-    });
-  }
+  useEffect(() => {
+    if (stop.location.state !== undefined) {
+      const data = stop.location.state.stop.stop;
+      localStorage.setItem("data", JSON.stringify(data));
+      console.log(data);
+      setStopData({
+        id: data._id,
+        custName: data.custName,
+        address: data.address,
+        suite: data.suite,
+        city: data.city,
+        deliveryLocation: data.deliveryLocation,
+        notes: data.notes,
+        signers: data.signers,
+      });
+      setDataLoaded(true)
+    }
+    if (stop.location.state === undefined) {
+      const data = localStorage.getItem("data");
+      const dataObject = JSON.parse(data);
+      console.log(dataObject);
+      setStopData({
+        id: dataObject._id,
+        custName: dataObject.custName,
+        address: dataObject.address,
+        suite: dataObject.suite,
+        city: dataObject.city,
+        deliveryLocation: dataObject.deliveryLocation,
+        notes: dataObject.notes,
+        signers: dataObject.signers,
+      });
+      setDataLoaded(true)
+    }
 
-  function handleChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+  }, [dataLoaded])
+
+  const handleChange = event => {
+    event.persist();
+    setStopData(stopData => ({ ...stopData, [event.target.name]: event.target.value }));
     event.preventDefault();
   }
 
-  function handleSubmit(event) {
+  const handleSubmit = event => {
     event.preventDefault();
     const token = localStorage.getItem("token");
     fetch(`/api/v1/notes/${stopData.id}`, {
@@ -83,55 +90,55 @@ export default function UpdateNote(stop) {
           name="custName"
           type="text"
           placeholder="Customer Name"
-          value={stopData.custName}
-          onChange={handleChange()}
+          value={stopData.custName || ""}
+          onChange={handleChange}
         />
         <input
           name="address"
           type="text"
           placeholder="Address"
-          value={stopData.address}
-          onChange={handleChange()}
+          value={stopData.address || ''}
+          onChange={handleChange}
         />
         <input
           name="suite"
           type="text"
           placeholder="Suite"
           value={stopData.suite}
-          onChange={handleChange()}
+          onChange={handleChange}
         />
         <input
           name="city"
           type="text"
           placeholder="City"
           value={stopData.city}
-          onChange={handleChange()}
+          onChange={handleChange}
         />
         <input
           name="deliveryLocation"
           type="text"
           placeholder="Delivery Location"
           value={stopData.deliveryLocation}
-          onChange={handleChange()}
+          onChange={handleChange}
         />
         <input
           name="notes"
           type="text"
           placeholder="Notes"
           value={stopData.notes}
-          onChange={handleChange()}
+          onChange={handleChange}
         />
         <input
           name="signers"
           type="text"
           placeholder="Signers"
           value={stopData.signers}
-          onChange={handleChange()}
+          onChange={handleChange}
         />
         <input
           type="submit"
           value="Update Note"
-          onClick={handleSubmit()}
+          onClick={handleSubmit}
         />
       </UpdateForm>
     </div>

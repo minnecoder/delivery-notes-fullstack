@@ -9,9 +9,11 @@ function SingleStop(stop) {
     window.location.reload();
   }
 
-  const onSignerChange = event => {
+  function onSignerChange(event) {
     event.persist();
-    setSignerName(prevSigner => ({ ...prevSigner, [event.target.name]: event.target.value }))
+    // setSignerName(prevSigner => ({ ...prevSigner, [event.target.name]: event.target.value }))
+    setSignerName(event.target.value)
+
   }
 
   const handleSubmit = async (id) => {
@@ -98,7 +100,6 @@ function SingleStop(stop) {
 }
 
 export default SingleStop;
-
 const Main = styled.div`
   width: 70%;
   padding-left: 2rem;
