@@ -81,7 +81,7 @@ export default function UpdateNote(stop) {
   }
 
   return (
-    <div>
+    <Main>
       <NavBar />
       <UpdateTitle>Update Stop</UpdateTitle>
       <p>{stopData.error}</p>
@@ -141,9 +141,13 @@ export default function UpdateNote(stop) {
           onClick={handleSubmit}
         />
       </UpdateForm>
-    </div>
+    </Main>
   )
 }
+
+const Main = styled.div`
+background: #C0C6C8;
+`
 
 const UpdateTitle = styled.h1`
   font-size: 3rem;
@@ -161,11 +165,18 @@ const UpdateForm = styled.form`
     margin: 0.5rem 0;
     padding: 1rem 0;
     width: 50%;
+    border-radius: 8px;
+  border: solid 1px #C0C6C8;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   }
 
   input[type="submit"] {
-    margin: 0.5rem 0;
-    padding: 1rem 0;
-    width: 20%;
+    background: #767676;
+    width: 6rem;
+    padding: 1rem;
+    margin-top: .5rem;
+    border: solid 1px #767676;
+    border-radius: 8px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
   }
 `;
