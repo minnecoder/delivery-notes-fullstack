@@ -34,17 +34,17 @@ export default function StopList() {
   );
   if (!filteredStops.length && dataLoaded === true) {
     return (
-      <div>
+      <Main>
         <NavBar />
         <Title>Stops</Title>
-        <StopListDiv>
+        <NoStopListDiv>
           <Search type="text" placeholder="Search" onChange={e => setSearch(e.target.value)} />
           <p>
             There were no matches for that search. Would you like to add one?
-            </p>
+          </p>
           <AddLink to="/add">Add</AddLink>
-        </StopListDiv>
-      </div>
+        </NoStopListDiv>
+      </Main>
     );
   }
 
@@ -66,12 +66,21 @@ const Main = styled.div`
 background: #C0C6C8;
 `
 
+const NoStopListDiv = styled.div`
+align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  background: #C0C6C8;
+
+`
+
 const StopListDiv = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  
+  background: #C0C6C8;
 `;
 
 const Search = styled.input`
@@ -88,6 +97,7 @@ const Title = styled.h1`
   font-size: 3rem;
   text-align: center;
   background: #C0C6C8;
+
 `;
 
 const AddLink = styled(Link)`
